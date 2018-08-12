@@ -1,0 +1,14 @@
+{
+  "paths": {
+    "exclude": [
+      "webApps\\/(\\w+)\\/resources\\/components\\/(.*)\\/lib\\/(.*)$"
+    ]
+  },
+  "rules": {
+    "jshint#W032": {
+      "description": "Disable unnecessary semicolon warning",
+      "disabled": true
+    }
+  },
+  "auditors": {}
+}

@@ -1,0 +1,10 @@
+{
+    "flowModelVersion": "18.3.3",
+    "id": "jobs-flow",
+    "description": "Flow main",
+    "defaultPage": "jobs",
+    "chains": {},
+    "services": {},
+    "types": {},
+    "variables": {}
+}

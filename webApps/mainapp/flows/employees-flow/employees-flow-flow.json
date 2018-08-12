@@ -1,0 +1,10 @@
+{
+    "flowModelVersion": "18.3.3",
+    "id": "employees-flow",
+    "description": "Flow main",
+    "defaultPage": "employees",
+    "chains": {},
+    "services": {},
+    "types": {},
+    "variables": {}
+}

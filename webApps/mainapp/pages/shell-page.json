@@ -1,0 +1,95 @@
+{
+  "pageModelVersion": "18.3.3",
+  "description": "Application Starter Page",
+  "routerFlow": "dashboard-flow",
+  "variables": {},
+  "types": {},
+  "chains": {
+    "showNotificationChain": {
+      "variables": {
+        "eventPayload": {
+          "type": "object"
+        }
+      },
+      "root": "showNotificationBar",
+      "actions": {
+        "showNotificationBar": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ $page.components.byId('vbDefaultNotifier') }}",
+            "method": "show",
+            "params": [
+              "{{ $variables.eventPayload.type }}",
+              "{{ $variables.eventPayload.message }}",
+              "{{ $variables.eventPayload.displayMode === 'transient' }}"
+            ]
+          }
+        }
+      }
+    },
+    "navigateToPage": {
+      "root": "navigateToPage1",
+      "description": "",
+      "variables": {
+        "currentFlow": {
+          "type": "string",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "actions": {
+        "navigateToPage1": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "history": "push",
+            "page": "{{ $variables.currentFlow }}"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "vbNotification": {
+      "chains": [
+        {
+          "chainId": "showNotificationChain",
+          "parameters": {
+            "eventPayload": "{{ $event }}"
+          }
+        }
+      ]
+    },
+    "ojNavigationListSelection": {
+      "chains": [
+        {
+          "chainId": "navigateToPage",
+          "parameters": {
+            "currentFlow": "{{ $event.detail.value }}"
+      }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-vb-message-bar": {
+        "path": "vb/components/messagebar/loader"
+      },
+      "oj-menu": {
+        "path": "ojs/ojmenu"
+      },
+      "oj-menu-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-navigation-list": {
+        "path": "ojs/ojnavigationlist"
+      }
+    }
+  }
+}
