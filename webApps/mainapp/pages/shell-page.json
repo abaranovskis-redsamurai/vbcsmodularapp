@@ -1,6 +1,6 @@
 {
   "pageModelVersion": "18.3.3",
-  "description": "Application Starter Page",
+  "description": "Red Samurai Demo",
   "routerFlow": "dashboard-flow",
   "variables": {},
   "types": {},
@@ -46,6 +46,26 @@
           }
         }
       }
+    },
+    "IconClick": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callModuleFunction1",
+      "actions": {
+        "callModuleFunction1": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "showSide"
+          }
+        }
+      }
     }
   },
   "eventListeners": {
@@ -66,6 +86,16 @@
           "parameters": {
             "currentFlow": "{{ $event.detail.value }}"
       }
+        }
+      ]
+    },
+    "span452631441Click": {
+      "chains": [
+        {
+          "chainId": "IconClick",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
       ]
     }
@@ -89,7 +119,11 @@
       },
       "oj-navigation-list": {
         "path": "ojs/ojnavigationlist"
+      },
+      "oj-offcanvas": {
+        "path": "ojs/ojoffcanvas"
       }
     }
-  }
+  },
+  "title": "Red Samurai Demo"
 }
