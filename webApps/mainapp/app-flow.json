@@ -4,7 +4,14 @@
   "description": "Red Samurai Demo",
   "defaultPage": "shell",
   "chains": {},
-  "services": {},
+  "services": {
+    "Employees": {
+      "path": "../../services/Employees/service.json"
+    },
+    "EmployeesService": {
+      "path": "../../services/EmployeesService/service.json"
+    }
+  },
   "translations": {
     "app": {
       "path": "./resources/strings/app/nls/app-strings"

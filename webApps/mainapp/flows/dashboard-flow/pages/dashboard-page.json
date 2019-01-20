@@ -1,10 +1,25 @@
 {
   "pageModelVersion": "18.3.3",
-  "title": "My start page",
+  "title": "Dashboard",
   "description": "The starting page of the flow",
   "variables": {},
   "types": {},
   "chains": {},
   "eventListeners": {},
-  "imports": {}
+  "imports": {
+    "components": {
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-vb-list-item": {
+        "path": "vb/components/list-item/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
 }

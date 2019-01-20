@@ -1,3 +1,41 @@
 <div class="oj-flex">
-    <h1 id="h1--139809582-1" class="oj-flex-item oj-sm-12 oj-md-12">Employees</h1>
+  <h1 id="h1--139809582-1" class="oj-flex-item oj-sm-12 oj-md-10">Employees</h1>
+</div>
+<div class="oj-flex">
+  <hr id="hr-1831878520-1" class="oj-flex-item oj-sm-12 oj-md-12">
+</div>
+<div class="oj-flex">
+  <h3 id="h1-1831878520-1" class="oj-flex-item oj-sm-12 oj-md-12">Search</h3>
+</div>
+<div class="oj-flex">
+  <oj-form-layout id="oj-form-layout-1831878520-1" class="oj-flex-item oj-sm-12 oj-md-12"
+    max-columns="4" direction="row">
+    <oj-input-text id="oj-input-text-1831878520-2" placeholder="First Name" value="{{ $page.variables.firstNameQueryCriteria.value }}"></oj-input-text>
+    <oj-input-text id="oj-input-text-1831878520-3" placeholder="Last Name" value="{{ $page.variables.lastNameQueryCriteria.value }}"></oj-input-text>
+    <oj-input-date id="oj-input-date-1831878520-1" placeholder="Hire Date" value="{{ $page.variables.hireDateQueryCriteria.value }}"></oj-input-date>
+    <oj-input-text id="oj-input-text-1831878520-4" placeholder="Email" value="{{ $page.variables.emailQueryCriteria.value }}"></oj-input-text>
+    <oj-input-text id="oj-input-text-1831878520-5" placeholder="Phone Number" value="{{ $page.variables.phoneNumberQueryCriteria.value }}"></oj-input-text>
+    <oj-input-number id="oj-input-number-1831878520-1" placeholder="Salary" min="0" max="20000"
+      value="{{ $page.variables.salaryQueryCriteria.value }}"></oj-input-number>
+  </oj-form-layout>
+</div>
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-12 oj-md-12 oj-flex-bar oj-sm-align-items-center">
+    <oj-toolbar chroming="full" id="oj-toolbar-1831878520-1" class="oj-flex-bar-end">
+      <oj-button id="oj-button-1831878520-1" on-oj-action="[[$listeners.ojButton18318785201OjAction]]">Search</oj-button>
+      <oj-button id="oj-button-1831878520-2" on-oj-action="[[$listeners.ojButton18318785202OjAction]]">Reset</oj-button>
+    </oj-toolbar>
+  </div>
+</div>
+<div class="oj-flex">
+  <hr id="hr-1831878520-2" class="oj-flex-item oj-sm-12 oj-md-12">
+</div>
+<div class="oj-flex">
+  <h3 id="h1-1831878520-2" class="oj-flex-item oj-sm-12 oj-md-12">Results</h3>
+</div>
+<div class="oj-flex" style="height:430px;">
+  <oj-table summary="Sample Table" id="oj-table-1831878520-1" class="oj-flex-item"
+    data="[[$page.variables.employeesListSDP]]" columns='[{"headerText":"First Name","field":"FirstName"},{"headerText":"Last Name","field":"LastName"},{"headerText":"Hire Date","field":"HireDate"},{"headerText":"Email","field":"Email"},{"headerText":"Phone Number","field":"PhoneNumber"},{"headerText":"Salary","field":"Salary"}]'
+    selection-mode.row="single" scroll-policy="loadMoreOnScroll" scroll-policy-options.fetch-size="15">
+  </oj-table>
 </div>

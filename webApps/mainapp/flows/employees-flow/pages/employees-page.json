@@ -1,10 +1,290 @@
 {
   "pageModelVersion": "18.3.3",
-  "title": "My start page",
+  "title": "Employees",
   "description": "The starting page of the flow",
-  "variables": {},
-  "types": {},
-  "chains": {},
-  "eventListeners": {},
-  "imports": {}
+  "variables": {
+    "employeesListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "EmployeesService/getall_Employees",
+        "responseType": "getall_Employees",
+        "itemsPath": "items",
+        "capabilities": {
+          "sortCapability": "multiple"
+        }
+      }
+    },
+    "firstNameQueryCriteria": {
+      "type": "QueryType",
+      "defaultValue": {
+        "attribute": "FirstName",
+        "op": "$co"
+      },
+      "input": "fromCaller"
+    },
+    "lastNameQueryCriteria": {
+      "type": "QueryType",
+      "defaultValue": {
+        "attribute": "LastName",
+        "op": "$co"
+      },
+      "input": "fromCaller"
+    },
+    "hireDateQueryCriteria": {
+      "type": "QueryType",
+      "defaultValue": {
+        "attribute": "HireDate",
+        "op": "$co"
+      }
+    },
+    "emailQueryCriteria": {
+      "type": "QueryType",
+      "defaultValue": {
+        "attribute": "Email",
+        "op": "$co"
+      }
+    },
+    "phoneNumberQueryCriteria": {
+      "type": "QueryType",
+      "defaultValue": {
+        "attribute": "PhoneNumber",
+        "op": "$co"
+      }
+    },
+    "salaryQueryCriteria": {
+      "type": "QueryType",
+      "defaultValue": {
+        "attribute": "Salary",
+        "op": "$eq"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getall_Employees": {
+      "endpoint": "getall_Employees",
+      "service": "EmployeesService",
+      "path": "response"
+    },
+    "getall_Employees": {
+      "items": [
+        {
+          "EmployeeId": "number",
+          "FirstName": "string",
+          "LastName": "string",
+          "Email": "string",
+          "PhoneNumber": "string",
+          "HireDate": "string",
+          "Salary": "number"
+        }
+      ]
+    },
+    "QueryType": {
+      "attribute": "string",
+      "op": "string",
+      "value": "string"
+    }
+  },
+  "chains": {
+    "ResetButtonActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignVariables1",
+      "actions": {
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.firstNameQueryCriteria": {
+              "source": {
+                "value": "{{ '' }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.value": {
+                  "source": "$source.value",
+                  "reset": "empty"
+                }
+              }
+            },
+            "$page.variables.lastNameQueryCriteria": {
+              "source": {
+                "value": "{{ '' }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.value": {
+                  "source": "$source.value",
+                  "reset": "empty"
+                }
+              }
+            },
+            "$page.variables.emailQueryCriteria": {
+              "source": {
+                "value": "{{ '' }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.value": {
+                  "source": "$source.value",
+                  "reset": "empty"
+                }
+              }
+            },
+            "$page.variables.hireDateQueryCriteria": {
+              "source": {
+                "value": "{{ '' }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.value": {
+                  "source": "$source.value",
+                  "reset": "empty"
+                }
+              }
+            },
+            "$page.variables.phoneNumberQueryCriteria": {
+              "source": {
+                "value": "{{ '' }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.value": {
+                  "source": "$source.value",
+                  "reset": "empty"
+                }
+              }
+            },
+            "$page.variables.salaryQueryCriteria": {
+              "mapping": {
+                "$target.value": "{{ undefined }}"
+              }
+            }
+          }
+        }
+      }
+    },
+    "SearchButtonActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "prepareSearchQueryParamsFunc",
+      "actions": {
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeesListSDP": {
+              "source": {
+                "filterCriterion": {
+                  "op": "$and",
+                  "criteria": "{{ $chain.results.prepareSearchQueryParamsFunc }}"
+                }
+              },
+              "reset": "none",
+              "mapping": {
+                "$target.filterCriterion": {
+                  "source": "$source.filterCriterion",
+                  "reset": "empty",
+                  "auto": "always"
+                }
+              },
+              "auto": "always"
+            }
+          }
+        },
+        "prepareSearchQueryParamsFunc": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$flow.functions}}",
+            "functionName": "prepareSearchQueryParams",
+            "params": [
+              "{{ $page.variables.firstNameQueryCriteria }}",
+              "{{ $page.variables.lastNameQueryCriteria }}",
+              "{{ $page.variables.hireDateQueryCriteria }}",
+              "{{ $page.variables.emailQueryCriteria }}",
+              "{{ $page.variables.phoneNumberQueryCriteria }}",
+              "{{ $page.variables.salaryQueryCriteria }}"
+            ],
+            "returnType": "object[]"
+          },
+          "outcomes": {
+            "success": "assignVariables1"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojButton18318785201OjAction": {
+      "chains": [
+        {
+          "chainId": "SearchButtonActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "ojButton18318785202OjAction": {
+      "chains": [
+        {
+          "chainId": "ResetButtonActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-buttonset-one": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-buttonset-many": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      }
+    }
+  }
 }
